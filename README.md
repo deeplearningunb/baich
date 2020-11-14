@@ -15,3 +15,11 @@ João Pedro Sconetto
 ```shell
 sudo apt-get install portaudio19-dev python3-pyaudio
 ```
+
+## Known Errors
+
+- music21 while reading mid files getting an decode error:
+
+Check this correction: https://github.com/cuthbertLab/music21/pull/607/files
+
+(intended for the next version but on version 6.1.0 this corrections is not present)
