@@ -1,0 +1,9 @@
+# Base dependencies
+Keras==2.4.3
+tensorflow==2.3.1
+h5py==3.1.0
+music2==6.1.0
+
+# Development dependencies
+ipdb==0.13.4
+ipython==7.19.0
