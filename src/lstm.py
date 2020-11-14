@@ -12,7 +12,11 @@ from keras.utils import np_utils
 from keras.callbacks import ModelCheckpoint
 
 
+logging.basicConfig(
+    level=logging.DEBUG, format="%(asctime)s [%(levelname)s] - %(message)s"
+)
 _logger = logging.getLogger(__name__)
+
 
 def train_network():
     """ Train a Neural Network to generate music """
@@ -31,7 +35,7 @@ def train_network():
 def get_notes():
     """ Get all the notes and chords from the midi files in the ./assets/songs directory """
     notes = []
-    
+
     for file in glob.glob("assets/songs/*.mid"):
         midi = converter.parse(file)
 
