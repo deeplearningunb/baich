@@ -9,3 +9,9 @@ It's inspired on the great classical composer _Johan Sebastina Bach_.
 Isaque Alves
 Mariana Mendes
 João Pedro Sconetto
+
+## Dependencies
+
+```shell
+sudo apt-get install portaudio19-dev python3-pyaudio
+```
