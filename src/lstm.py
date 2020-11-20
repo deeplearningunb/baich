@@ -20,10 +20,12 @@ _logger = logging.getLogger(__name__)
 
 def train_network():
     """ Train a Neural Network to generate music """
+    logging.info('Start Train Network')
     notes = get_notes()
 
     # get amount of pitch names
     n_vocab = len(set(notes))
+    logging.info(f'Amount of pitches:{n_vocab}')
 
     network_input, network_output = prepare_sequences(notes, n_vocab)
 
@@ -34,6 +36,7 @@ def train_network():
 
 def get_notes():
     """ Get all the notes and chords from the midi files in the ./assets/songs directory """
+    logging.info('Start get all notes and chords')
     notes = []
 
     for file in glob.glob("assets/songs/*.mid"):
@@ -50,6 +53,7 @@ def get_notes():
         # file has notes in a flat structure
         except:
             notes_to_parse = midi.flat.notes
+            logging.error("Exception occurred", exc_info=True)
 
         for element in notes_to_parse:
             if isinstance(element, note.Note):
@@ -59,12 +63,13 @@ def get_notes():
 
     with open("data/notes", "wb") as filepath:
         pickle.dump(notes, filepath)
-
+        logging.info('written notes in data/notes')
     return notes
 
 
 def prepare_sequences(notes, n_vocab):
     """ Prepare the sequences used by the Neural Network """
+    logging.info('Starting to prepar the sequence')
     sequence_length = 100
 
     # get all pitch names
@@ -72,6 +77,7 @@ def prepare_sequences(notes, n_vocab):
 
     # create a dictionary to map pitches to integers
     note_to_int = dict((note, number) for number, note in enumerate(pitchnames))
+    logging.info('Dictionary created')
 
     network_input = []
     network_output = []
@@ -82,21 +88,25 @@ def prepare_sequences(notes, n_vocab):
         sequence_out = notes[i + sequence_length]
         network_input.append([note_to_int[char] for char in sequence_in])
         network_output.append(note_to_int[sequence_out])
-
+    
+    loggin.info('Network input and output created')
     n_patterns = len(network_input)
+    logging.info('Number of patterns:%s', n_patterns)
 
     # reshape the input into a format compatible with LSTM layers
     network_input = numpy.reshape(network_input, (n_patterns, sequence_length, 1))
     # normalize input
     network_input = network_input / float(n_vocab)
+    loggin.info('Network input reshaped and normalized')
 
     network_output = np_utils.to_categorical(network_output)
-
+    logging.info('Sequences Prepared')
     return (network_input, network_output)
 
 
 def create_network(network_input, n_vocab):
     """ create the structure of the neural network """
+    logging.info('Starting to create network')
     model = Sequential()
     model.add(
         LSTM(
@@ -124,11 +134,13 @@ def create_network(network_input, n_vocab):
     model.add(Activation("softmax"))
     model.compile(loss="categorical_crossentropy", optimizer="rmsprop")
 
+    logging.info('Neural Network created')
     return model
 
 
 def train(model, network_input, network_output):
     """ train the neural network """
+    logging.info('Starting model training')
     filepath = "assets/weights/weights-improvement-{epoch:02d}-{loss:.4f}-bigger.hdf5"
     checkpoint = ModelCheckpoint(
         filepath, monitor="loss", verbose=0, save_best_only=True, mode="min"
@@ -142,6 +154,7 @@ def train(model, network_input, network_output):
         batch_size=128,
         callbacks=callbacks_list,
     )
+    logging.info('Model Trained')
 
 
 if __name__ == "__main__":
