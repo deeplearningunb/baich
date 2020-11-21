@@ -16,8 +16,8 @@ If you have any questions you can also contact us by creating an issue.
 
 | Name | Registry |
 | --- | --- |
-| Isaque Alves | |
-| Mariana Mendes | |
+| Isaque Alves | 14/0144544 |
+| Mariana Mendes | 14/0154027 |
 | João Pedro Sconetto | 14/0145940 |
 
 ## Requirements
@@ -153,6 +153,32 @@ flake8 --ignore E501 src
 
 During the lint process the terminal will report a code errors and warnings from the PEP8 style guide, for more configurations and additional documentation go to [flake8](http://flake8.pycqa.org/en/latest/) and [PEP8](https://www.python.org/dev/peps/pep-0008/).
 The rule `E501` (Line too long) is ignored because the base linter is black and not PEP8.
+
+## Build
+
+### Generate Changelog
+
+To generate changelog we use the `standard version` tool, it will auto generate a new changelog for every new release by using the commit messages. To generate a new release and generate the updated changelog just do the following steps:
+
+1. Install all dependencies
+
+```shell
+yarn install
+```
+
+2. Run standard version:
+
+```shell
+yarn run release
+```
+
+If the release is a pre-release you should add the `--prerelease` to the command:
+
+```shell
+yarn run release -- --prerelease alpha
+```
+
+For further instructions or other options check the full documentation of `standard version` project in the [CLI Usage](https://github.com/conventional-changelog/standard-version#cli-usage) section.
 
 ## References
 

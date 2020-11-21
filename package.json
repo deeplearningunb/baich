@@ -1,0 +1,27 @@
+{
+  "name": "baich",
+  "version": "0.1.0",
+  "description": "A project that generates songs using LSTM Neural Networks in Python using the Keras library.",
+  "main": "src/lstm.py",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deeplearningunb/baich.git"
+  },
+  "keywords": [
+    "ai",
+    "deep-learning",
+    "music"
+  ],
+  "author": "João Pedro Sconetto <sconetto.joao@gmail.com> & Isaque Alves <isaquealvesdl@gmail.com> & Mariana Mendes <mare.s.mendes@gmail.com>",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/deeplearningunb/baich/issues"
+  },
+  "private": false,
+  "dependencies": {
+    "standard-version": "^9.0.0"
+  },
+  "scripts": {
+    "release": "standard-version"
+  }
+}
